@@ -18,6 +18,10 @@ class Item
 		@completed_status = false
 	end
 end
+
 items = Item.new("To do laundry")
 
-puts items.description
+def add_item(new_item)
+	item_add=Item.new(new_item)
+	@items.push(item_add)
+end
