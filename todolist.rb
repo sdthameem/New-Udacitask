@@ -7,10 +7,8 @@ class TodoList
     def initialize(list_title)
 		@title = list_title
 		@items = Array.new  # Starts empty! No Items yet!
-		@report_file = File.new("report.txt", "w+")
+		@report_file = File.new("report.txt", "w+") #Writing the output to a file 
 	end
-
-#Writing the output to a file 
 
 # Creates a new Item and adds it to the array of Items
 	def add_item(new_item)
