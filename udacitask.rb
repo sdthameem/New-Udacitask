@@ -25,7 +25,7 @@ mylist.remove_item(2)
 mylist.print_list
 
 # Update the completion status of the first item to complete
-mylist.update_status(0,true)
+mylist.update_status(1,true)
 
 # Print the list
 mylist.print_list
