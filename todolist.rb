@@ -32,19 +32,20 @@ class TodoList
 #Calls Item method to delete item 
     def remove_item(item_pos)
         $report_file.puts '*****************************'
-        $report_file.puts "Item: #{@items[item_pos].description} is removed"   	
-	    @items.delete_at(item_pos)
+        $report_file.puts "Item: #{@items[item_pos+1].description} is removed"   	
+	    @items.delete_at(item_pos+1)
 	    @items.each_with_index do |value,index| #To get new Item id after removing item
 	        value.update_item_id(index)
 	    end
     end
+
 #Method to update title
     def update_title(new_title)
     	@title = new_title
     end
 #Calls Item method to update completion status
     def update_status(item_pos,status)
-    	@items[item_pos].update_completion_status(status)
+    	@items[item_pos+1].update_completion_status(status)
     end
 
 #Calls Item method and checks the completion status for each item
@@ -71,7 +72,7 @@ class TodoList
 end
 
 class Item
-	attr_reader :description , :completed_status ,:due_date
+	attr_reader :description , :completed_status ,:due_date , :report_file
 
 # Initialize item with a description and marked as not complete
 	def initialize(input_description,id)
@@ -95,11 +96,7 @@ class Item
     end
 #Method to check Item is completed
     def check_completed?
-    	if @completed_status == true
-    		return true
-    	else
-    		return false
-    	end
+    	@completed_status
     end
 #Method to update Item due date
     def update_item_due_date(new_due_date)
