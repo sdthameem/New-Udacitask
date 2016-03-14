@@ -38,8 +38,8 @@ class TodoList
     	@title = new_title
     end
 #Calls Item method to update completion status
-    def update_status(item_pos,status)
-    	@items[item_pos+1].update_completion_status(status)
+    def update_status(item_id,status)
+    	@items[item_id-1].completed_status = status
     end
 
 #Calls Item method and checks the completion status for each item
@@ -47,7 +47,7 @@ class TodoList
     	@report_file.puts '*****************************'
         @items.each do |value|
      	   status = value.check_completed?
-     	   if status == true
+     	   if status
      	   	@report_file.puts "Item #{value.description} is completed"
      	   end
      	end
@@ -55,11 +55,11 @@ class TodoList
     end
 
 #Calls Item method and checks for each item before updating the due date.
-    def update_due_date(item_name,due_date)
+    def update_due_date(item_name,new_due_date)
     	@items.each do |value|
     	    if value.description == item_name # check each item against input item
-    		    value.update_item_due_date(due_date)
-    		    @report_file.puts "Item: #{item_name} due date updated to #{due_date}"
+    		    value.due_date = new_due_date
+    		    @report_file.puts "Item: #{item_name} due date updated to #{new_due_date}"
     	    end
         end
     end
@@ -68,7 +68,8 @@ end
 #**********************************************************************
 
 class Item
-	attr_reader :description , :completed_status ,:due_date 
+	attr_reader :description
+    attr_accessor :completed_status , :due_date 
 
 # Initialize item with a description and marked as not complete
 	def initialize(input_description)
@@ -86,18 +87,8 @@ class Item
     	report_file.puts '----------------------'
     end
 
-#Method to update item completion status
-    def update_completion_status(status)
-    	@completed_status = status
-    end
-
 #Method to check Item is completed
     def check_completed?
     	@completed_status
-    end
-
-#Method to update Item due date
-    def update_item_due_date(new_due_date)
-    	@due_date = new_due_date
     end
 end
